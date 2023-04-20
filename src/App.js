@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navbar, Nav } from 'react-bootstrap';
+import "./App.css";
+import Home from "./components/Home";
+import Products from "./components/products/Products";
+import AboutUs from "./components/AboutUs";
+
+import AddProduct from "./components/products/AddProduct";
+import ProductDisplay from "./components/products/ProductDisplay";
+import ListProducts from "./components/products/ListProducts";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="/">Home</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/AboutUs">About us</Nav.Link>
+            <Nav.Link href="/products">Donate!</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="AboutUs" element={<AboutUs/>} />
+        <Route path="products" element={<Products />}>
+           <Route path="list" element={<ListProducts />} />
+          <Route path="add" element={<AddProduct />} />
+          <Route path=":id" element={<ProductDisplay />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
